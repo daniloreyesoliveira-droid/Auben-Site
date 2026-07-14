@@ -11,21 +11,29 @@
         h1 { font-size: 18px; color: #0f172a; margin-bottom: 5px; }
         h2 { font-size: 16px; color: #0f172a; margin: 0 0 20px 0; text-align: center; }
         p { color: #64748b; font-size: 13px; margin: 0 0 20px 0; }
+        
         .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         select, button { padding: 12px; border-radius: 10px; border: 1.5px solid #e2e8f0; font-size: 14px; }
         button { grid-column: span 2; background: #0f172a; color: #fff; font-weight: 600; cursor: pointer; border: none; transition: 0.3s; }
         button:hover { background: #334155; }
-        #result { margin-top: 20px; padding: 15px; border-radius: 12px; display: none; border-left: 5px solid #ccc; background: #f8fafc; text-align: left; }
+        
+        #result { margin-top: 20px; padding: 15px; border-radius: 12px; display: none; border-left: 5px solid #ccc; background: #f8fafc; text-align: left; transition: 0.3s;}
         .calc-box { margin-top: 15px; padding-top: 15px; border-top: 1px solid #cbd5e1; }
         .calc-box p { margin: 0 0 10px 0; font-size: 12px; color: #0f172a; font-weight: 600; }
         .calc-input { width: 100%; box-sizing: border-box; padding: 10px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 13px; outline: none; }
         .calc-res { margin-top: 10px; font-size: 14px; font-weight: 600; color: #d4145a; min-height: 20px; }
+        
+        .btn-share { display: none; margin-top: 15px; background: #25D366; color: #fff; padding: 12px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 600; text-align: center; transition: 0.3s; width: 100%; box-sizing: border-box; }
+        .btn-share:hover { background: #1ebd5a; }
+        .btn-share.show { display: block; }
+
         .info-container { padding: 0; }
         .acc-head { display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding: 20px 30px; font-weight: 600; font-size: 14px; color: #0f172a; }
         .acc-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
         .acc-inner { padding: 0 30px 30px 30px; color: #64748b; font-size: 13px; line-height: 1.6; text-align: left; }
         .acc-inner p:last-child { margin-bottom: 0; }
         #icon { transition: transform 0.3s; }
+        
         .table-container { max-width: 600px; padding: 30px 20px; }
         .table-wrapper { overflow-x: auto; margin-bottom: 20px; padding-top: 10px; }
         table { width: 100%; border-collapse: collapse; text-align: center; font-size: 12px; min-width: 400px; }
@@ -33,20 +41,40 @@
         th, td:first-child { background: #f8fafc; font-weight: 600; color: #475569; }
         td:first-child { text-align: left; padding-left: 15px; }
         .flag { width: 20px; height: 20px; display: block; margin: 0 auto; cursor: pointer; }
+        
         .tooltip { position: relative; display: inline-flex; justify-content: center; align-items: center; }
         .tooltip::after, .tooltip::before { position: absolute; left: 50%; transform: translateX(-50%); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.2s ease, visibility 0s linear 0.2s; z-index: 10; }
         .tooltip::after { content: attr(data-tip); bottom: 130%; background: #0f172a; color: #fff; padding: 6px 10px; border-radius: 6px; font-size: 11px; white-space: nowrap; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .tooltip::before { content: ""; bottom: 100%; border-width: 5px; border-style: solid; border-color: #0f172a transparent transparent transparent; }
         .tooltip:hover::after, .tooltip:hover::before { opacity: 1; visibility: visible; transition: opacity 0.2s ease 1s, visibility 0s linear 1s; }
+        
         .legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; font-size: 11px; color: #64748b; }
         .leg-item { display: flex; align-items: center; gap: 5px; }
         .leg-icon { width: 14px; height: 14px; }
+
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.7); display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: 0.3s; z-index: 1000; }
+        .modal-overlay.show { opacity: 1; visibility: visible; }
+        .modal-box { background: white; padding: 30px; border-radius: 20px; width: 90%; max-width: 400px; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.3); transform: translateY(20px); transition: 0.3s; text-align: left; box-sizing: border-box; }
+        .modal-overlay.show .modal-box { transform: translateY(0); }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: #64748b; transition: 0.2s; }
+        .close-btn:hover { color: #0f172a; }
+        .modal-box h3 { margin-top: 0; color: #0f172a; font-size: 18px; margin-bottom: 10px; }
+        .modal-box p { font-size: 13px; margin-bottom: 20px; color: #64748b; }
+        .modal-box input { width: 100%; box-sizing: border-box; padding: 12px; margin-bottom: 15px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 14px; outline: none; transition: 0.3s;}
+        .modal-box input:focus { border-color: #0f172a; }
+        .modal-box .btn-submit { background: #d4145a; margin-top: 5px; }
+        .modal-box .btn-submit:hover { background: #be1250; }
+
+        .floating-btn { position: fixed; bottom: 30px; right: 30px; background: #0f172a; color: #fff; padding: 15px 25px; border-radius: 50px; font-size: 14px; font-weight: 600; cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.3); transition: 0.3s; z-index: 100; border: 2px solid #fff;}
+        .floating-btn:hover { transform: translateY(-5px); background: #d4145a; }
+        @media (max-width: 600px) { .floating-btn { bottom: 20px; right: 20px; padding: 12px 20px; font-size: 13px; } }
     </style>
 </head>
 <body>
-<div class="logo-box">
-    <img src="https://raw.githubusercontent.com/daniloreyesoliveira-droid/Auben-Site/main/Auben%20Removal.png" alt="Logo Aubeny">
-</div>
+
+    <div class="logo-box">
+        <img src="https://raw.githubusercontent.com/daniloreyesoliveira-droid/Auben-Site/main/Auben%20Removal.png" alt="Logo Auben">
+    </div>
 
     <div class="container">
         <h1>Histórico de Bandeiras</h1>
@@ -69,50 +97,82 @@
                 <p>As bandeiras tarifárias sinalizam cobrança adicional na conta de luz por MWh consumido, definidas mensalmente pela ANEEL.</p>
                 <p>🟢 <strong>Verde:</strong> sem adicional.<br>🟡 <strong>Amarela:</strong> pequeno acréscimo.<br>🔴 <strong>Vermelha 1 e 2:</strong> acréscimos maiores.</p>
                 <p><strong>Importante:</strong> Clientes do Mercado Livre de Energia não sofrem alterações das bandeiras tarifárias.</p>
+                <p>Gostaria de saber mais ou entender como o Mercado Livre de Energia pode beneficiar a sua empresa? <a href="#" onclick="abrirContato(event)" style="color: #d4145a; font-weight: 600; text-decoration: underline;">Entre em contato conosco</a>. Nossa equipe fará um orçamento sem compromisso.</p>
             </div>
         </div>
     </div>
 
     <div class="container table-container">
-        <h2>Visão Geral (2021 - 2026)</h2>
+        <!-- O título da Visão Geral agora é gerado automaticamente -->
+        <h2 id="titulo-visao">Visão Geral</h2>
         <div class="table-wrapper">
             <table>
-                <thead><tr><th>Mês</th><th>2026</th><th>2025</th><th>2024</th><th>2023</th><th>2022</th><th>2021</th></tr></thead>
+                <thead><tr id="tabHead"></tr></thead>
                 <tbody id="tabBody"></tbody>
             </table>
         </div>
         <div class="legend" id="legend"></div>
     </div>
 
+    <div class="floating-btn" onclick="abrirContato(event)">💬 Fale com um Especialista</div>
+
+    <!-- Modal de Contato -->
+    <div id="modal-contato" class="modal-overlay">
+        <div class="modal-box">
+            <span class="close-btn" onclick="fecharContato()">×</span>
+            <h3>Solicitar Orçamento</h3>
+            <p>Deixe seus dados abaixo e um de nossos especialistas entrará em contato em breve.</p>
+            <form onsubmit="enviarContato(event)">
+                <input type="text" id="nome-contato" placeholder="Nome da Empresa / Contato" required>
+                <input type="email" id="email-contato" placeholder="E-mail corporativo" required>
+                <input type="tel" id="telefone-contato" placeholder="(XX) XXXXX-XXXX" required oninput="mascaraTelefone(event)" maxlength="15">
+                <button type="submit" class="btn-submit">Enviar Solicitação</button>
+            </form>
+        </div>
+    </div>
+
 <script>
-    const db = {
+    // 1. DADOS DE SEGURANÇA (Se a internet cair ou o Governo tirar do ar, o site não quebra)
+    let db = {
       "2026": {"1":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"2":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"3":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"4":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"5":{"n":"Amarelo","c":"#FFD54F","v":"R$ 18,85 por MWh"},"6":{"n":"Amarelo","c":"#FFD54F","v":"R$ 18,85 por MWh"},"7":{"n":"Amarelo","c":"#FFD54F","v":"R$ 18,85 por MWh"}},
       "2025": {"1":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"2":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"3":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"4":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"5":{"n":"Amarelo","c":"#FFD54F","v":"R$ 18,85 por MWh"},"6":{"n":"Vermelho 1","c":"#E53935","v":"R$ 44,63 por MWh"},"7":{"n":"Vermelho 1","c":"#E53935","v":"R$ 44,63 por MWh"},"8":{"n":"Vermelho 2","c":"#B71C1C","v":"R$ 78,77 por MWh"},"9":{"n":"Vermelho 1","c":"#E53935","v":"R$ 44,63 por MWh"},"10":{"n":"Vermelho 1","c":"#E53935","v":"R$ 44,63 por MWh"},"11":{"n":"Vermelho 1","c":"#E53935","v":"R$ 44,63 por MWh"},"12":{"n":"Amarelo","c":"#FFD54F","v":"R$ 18,85 por MWh"}},
       "2024": {"1":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"2":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"3":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"4":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"5":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"6":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"7":{"n":"Amarela","c":"#FFD54F","v":"R$ 1,89 por MWh"},"8":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"9":{"n":"Vermelho 1","c":"#E53935","v":"R$ 4,46 por MWh"},"10":{"n":"Vermelho 2","c":"#B71C1C","v":"R$ 7,88 por MWh"},"11":{"n":"Amarelo","c":"#FFD54F","v":"R$ 1,89 por MWh"},"12":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"}},
       "2023": {"1":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"2":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"3":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"4":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"5":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"6":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"7":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"8":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"9":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"10":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"11":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"12":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"}},
-      "2022": {"1":{"n":"Escassez","c":"#0d47a1","v":"R$ 142,0 por MWh"},"2":{"n":"Escassez","c":"#0d47a1","v":"R$ 142,0 por MWh"},"3":{"n":"Escassez","c":"#0d47a1","v":"R$ 142,0 por MWh"},"4":{"n":"Escassez","c":"#0d47a1","v":"R$ 142,0 por MWh"},"5":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"6"::{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"7":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"8":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"9":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"10":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"11":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"12":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"}},
+      "2022": {"1":{"n":"Escassez","c":"#0d47a1","v":"R$ 142,00 por MWh"},"2":{"n":"Escassez","c":"#0d47a1","v":"R$ 142,00 por MWh"},"3":{"n":"Escassez","c":"#0d47a1","v":"R$ 142,00 por MWh"},"4":{"n":"Escassez","c":"#0d47a1","v":"R$ 142,00 por MWh"},"5":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"6":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"7":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"8":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"9":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"10":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"11":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"},"12":{"n":"Verde","c":"#28a745","v":"Sem cobrança adicional"}},
       "2021": {"1":{"n":"Amarelo","c":"#FFD54F","v":"R$ 13,43 por MWh"},"2":{"n":"Amarelo","c":"#FFD54F","v":"R$ 13,43 por MWh"},"3":{"n":"Amarelo","c":"#FFD54F","v":"R$ 13,43 por MWh"},"4":{"n":"Amarelo","c":"#FFD54F","v":"R$ 13,43 por MWh"},"5":{"n":"Vermelho 1","c":"#E53935","v":"R$ 41,69 por MWh"},"6":{"n":"Vermelho 2","c":"#B71C1C","v":"R$ 94,92 por MWh"},"7":{"n":"Vermelho 2","c":"#B71C1C","v":"R$ 94,92 por MWh"},"8":{"n":"Vermelho 2","c":"#B71C1C","v":"R$ 94,92 por MWh"},"9":{"n":"Escassez","c":"#0d47a1","v":"R$ 142,00 por MWh"},"10":{"n":"Escassez","c":"#0d47a1","v":"R$ 142,00 por MWh"},"11":{"n":"Escassez","c":"#0d47a1","v":"R$ 142,00 por MWh"},"12":{"n":"Escassez","c":"#0d47a1","v":"R$ 142,00 por MWh"}}
     };
 
     let curRate = 0;
-    const meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
-    
-    // Helper para gerar o SVG da bandeira
+    const mesesFull = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+    const mesesAbrev = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
     const getSvg = (cor, cls) => `<svg class="${cls}" viewBox="0 0 24 24" fill="${cor}"><path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/></svg>`;
 
-    // Init Select Ano
-    const selAno = document.getElementById('ano');
-    Object.keys(db).forEach(a => selAno.innerHTML += `<option value="${a}">${a}</option>`);
+   
+    function updAnoSelect() {
+        const selAno = document.getElementById('ano');
+        const valAtual = selAno.value;
+        selAno.innerHTML = '<option value="">Ano</option>';
+        const anos = Object.keys(db).sort((a,b) => b - a); // Mais recentes no topo
+        anos.forEach(a => selAno.innerHTML += `<option value="${a}">${a}</option>`);
+        if(valAtual && db[valAtual]) selAno.value = valAtual;
+    }
 
     function updMes() {
+        const selAno = document.getElementById('ano');
         const selMes = document.getElementById('mes');
+        const valAtual = selMes.value;
         selMes.innerHTML = '<option value="">Mês</option>';
-        if(selAno.value) Object.keys(db[selAno.value]).forEach(m => selMes.innerHTML += `<option value="${m}">${meses[m-1]}</option>`);
+        if(selAno.value && db[selAno.value]) {
+            Object.keys(db[selAno.value]).forEach(m => selMes.innerHTML += `<option value="${m}">${mesesFull[m-1]}</option>`);
+        }
+        if(valAtual && db[selAno.value] && db[selAno.value][valAtual]) selMes.value = valAtual;
     }
 
     function consultar() {
-        const a = selAno.value, m = document.getElementById('mes').value, res = document.getElementById('result');
-        if (!a || !m) return alert("Selecione ano e mês.");
+        const a = document.getElementById('ano').value;
+        const m = document.getElementById('mes').value;
+        const res = document.getElementById('result');
+        if (!a || !m) return;
         
         const i = db[a][m];
         res.style.display = 'block'; res.style.background = i.c + "10"; res.style.borderLeftColor = i.c;
@@ -120,14 +180,68 @@
         let html = `<strong style="color:${i.c}">${i.n}</strong><br>Custo: ${i.v}`;
         if (!i.v.includes("Sem")) {
             curRate = parseFloat(i.v.replace("R$ ", "").replace(" por MWh", "").replace(",", "."));
-            html += `<div class="calc-box"><p>Consumo mensal (kWh)?</p><input type="number" id="kwh" class="calc-input" placeholder="Ex: 500" oninput="calc()"><div id="res-calc" class="calc-res"></div></div>`;
+            html += `
+                <div class="calc-box">
+                    <p>Consumo mensal (kWh)?</p>
+                    <input type="number" id="kwh" class="calc-input" placeholder="Ex: 500" oninput="calc()">
+                    <div id="res-calc" class="calc-res"></div>
+                    <a href="#" id="btn-share" class="btn-share" target="_blank">📲 Compartilhar no WhatsApp</a>
+                </div>`;
         } else curRate = 0;
         res.innerHTML = html;
     }
 
-    function calc() {
+   function calc() {
         const k = parseFloat(document.getElementById('kwh').value);
-        document.getElementById('res-calc').innerHTML = (k > 0) ? `Adicional: ${((k/1000)*curRate).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}` : '';
+        const resBox = document.getElementById('res-calc');
+        const shareBtn = document.getElementById('btn-share');
+        
+        if (k > 0) {
+            const valorCalculado = ((k/1000)*curRate);
+            const valorFormatado = valorCalculado.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+            resBox.innerHTML = `Adicional na fatura: ${valorFormatado}`;
+            
+            // CORREÇÃO: Buscando o ano e o mês da forma completa para evitar o erro de ReferenceError
+            const a = document.getElementById('ano').value;
+            const m = document.getElementById('mes').value;
+            
+            // Lógica do tempo verbal (teve / terá)
+            const dataAtual = new Date();
+            const anoAtual = dataAtual.getFullYear();
+            const mesAtual = dataAtual.getMonth() + 1; // getMonth começa no zero
+            
+            const isPassado = (parseInt(a) < anoAtual) || (parseInt(a) === anoAtual && parseInt(m) < mesAtual);
+            const verbo = isPassado ? "teve" : "terá";
+
+            // Montando a mensagem perfeita
+            const msg = `Nossa conta de energia ${verbo} um adicional estimado de *${valorFormatado}* em ${mesesFull[m-1]}/${a} devido à Bandeira Tarifária. ⚡\n\nSaiba como se livrar dessa taxa com o Mercado Livre de Energia:\n🔗 auben.com.br`;
+            
+            shareBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
+            shareBtn.classList.add('show');
+        } else {
+            resBox.innerHTML = '';
+            shareBtn.classList.remove('show');
+        }
+    }
+
+    function initTable() {
+        const anosTodos = Object.keys(db).map(Number).sort((a,b) => b - a);
+        const anos = anosTodos.slice(0, 6).map(String); // Pega apenas os 6 anos mais recentes
+        
+        // Atualiza cabeçalho dinâmico (Se for 2027, muda sozinho)
+        document.getElementById('titulo-visao').innerText = `Visão Geral (${anos[anos.length-1]} - ${anos[0]})`;
+        document.getElementById('tabHead').innerHTML = `<th>Mês</th>` + anos.map(a => `<th>${a}</th>`).join('');
+
+        let html = '';
+        for (let m = 1; m <= 12; m++) {
+            html += `<tr><td>${mesesAbrev[m-1]}</td>` + anos.map(a => {
+                const i = db[a] && db[a][m];
+                return `<td>${i && i.n !== "nan" ? `<div class="tooltip" data-tip="${i.v}">${getSvg(i.c, 'flag')}</div>` : `<span style="color:#cbd5e1">-</span>`}</td>`;
+            }).join('') + `</tr>`;
+        }
+        document.getElementById('tabBody').innerHTML = html;
+        const legData = [["#28a745","Verde"],["#FFD54F","Amarela"],["#E53935","Vermelha 1"],["#B71C1C","Vermelha 2"],["#0d47a1","Escassez"]];
+        document.getElementById('legend').innerHTML = legData.map(l => `<div class="leg-item">${getSvg(l[0], 'leg-icon')} ${l[1]}</div>`).join('');
     }
 
     function toggleAcc() {
@@ -137,22 +251,78 @@
         i.style.transform = isClosed ? "rotate(180deg)" : "rotate(0deg)";
     }
 
-    function initTable() {
-        const anos = ["2026", "2025", "2024", "2023", "2022", "2021"];
-        let html = '';
-        for (let m = 1; m <= 12; m++) {
-            html += `<tr><td>${meses[m-1]}</td>` + anos.map(a => {
-                const i = db[a] && db[a][m];
-                return `<td>${i && i.n !== "nan" ? `<div class="tooltip" data-tip="${i.v}">${getSvg(i.c, 'flag')}</div>` : `<span style="color:#cbd5e1">-</span>`}</td>`;
-            }).join('') + `</tr>`;
-        }
-        document.getElementById('tabBody').innerHTML = html;
-        
-        // Init Legend
-        const legData = [["#28a745","Verde"],["#FFD54F","Amarela"],["#E53935","Vermelha 1"],["#B71C1C","Vermelha 2"],["#0d47a1","Escassez"]];
-        document.getElementById('legend').innerHTML = legData.map(l => `<div class="leg-item">${getSvg(l[0], 'leg-icon')} ${l[1]}</div>`).join('');
+    // --- MODAL DE CONTATO E WHATSAPP ---
+    function abrirContato(e) { if(e) e.preventDefault(); document.getElementById('modal-contato').classList.add('show'); }
+    function fecharContato() { document.getElementById('modal-contato').classList.remove('show'); }
+    function mascaraTelefone(e) {
+        let v = e.target.value.replace(/\D/g, "");
+        v = v.replace(/^(\d{2})(\d)/g, "($1) $2");
+        v = v.replace(/(\d)(\d{4})$/, "$1-$2");
+        e.target.value = v;
     }
-    initTable();
+    function enviarContato(e) { e.preventDefault(); alert("Solicitação enviada com sucesso! Um especialista da Auben entrará em contato."); fecharContato(); e.target.reset(); }
+    window.onclick = function(e) { if (e.target == document.getElementById('modal-contato')) fecharContato(); }
+
+    // --- AUTOMAÇÃO REAL-TIME ANEEL ---
+    async function fetchAneelData() {
+        try {
+            // Consulta o Portal de Dados Abertos Oficial
+            const res = await fetch('https://dadosabertos.aneel.gov.br/api/3/action/datastore_search?resource_id=0591b8f6-fe54-437b-b72b-1aa2efd46e42&limit=500');
+            const json = await res.json();
+            
+            if (json.success && json.result && json.result.records) {
+                json.result.records.forEach(r => {
+                    if (!r.DatCompetencia) return;
+                    const partes = r.DatCompetencia.split('-'); // Extrai ano e mês "YYYY-MM"
+                    const ano = partes[0];
+                    const mes = parseInt(partes[1], 10).toString();
+                    
+                    let nome = r.NomBandeiraAcionada;
+                    let cor = "#cbd5e1";
+                    const nL = nome.toLowerCase();
+                    
+                    // Tratamento Automático das Cores
+                    if (nL.includes("verde")) { cor = "#28a745"; nome = "Verde"; }
+                    else if (nL.includes("amarela")) { cor = "#FFD54F"; nome = "Amarela"; }
+                    else if (nL.includes("p1") || nL.includes("patamar 1")) { cor = "#E53935"; nome = "Vermelha 1"; }
+                    else if (nL.includes("vermelha")) { cor = "#B71C1C"; nome = "Vermelha 2"; }
+                    else if (nL.includes("escassez")) { cor = "#0d47a1"; nome = "Escassez"; }
+                    
+                    let vlr = parseFloat(r.VlrAdicionalBandeira.toString().replace(',', '.'));
+                    let txtValor = (vlr === 0 || isNaN(vlr)) ? "Sem cobrança adicional" : `R$ ${r.VlrAdicionalBandeira} por MWh`;
+                    
+                    // Mescla o dado oficial da ANEEL na nossa base interna
+                    if (!db[ano]) db[ano] = {};
+                    db[ano][mes] = { n: nome, c: cor, v: txtValor };
+                });
+            }
+        } catch (e) { console.log("Usando banco de dados local (Offline Mode)."); }
+    }
+
+    // --- INICIALIZADOR GERAL ---
+    async function iniciarSite() {
+        // 1. Renderiza imediatamente com os dados de backup para não travar a tela
+        initTable();
+        updAnoSelect();
+        
+        const dt = new Date(); const aAtual = dt.getFullYear().toString(); const mAtual = (dt.getMonth() + 1).toString();
+        const selA = document.getElementById('ano'); const selM = document.getElementById('mes');
+        
+        if (!selA.value && db[aAtual]) {
+            selA.value = aAtual; updMes(); 
+            if (db[aAtual][mAtual]) { selM.value = mAtual; consultar(); }
+        }
+
+        // 2. Busca na ANEEL em segundo plano
+        await fetchAneelData();
+        
+        // 3. Atualiza tudo com os dados mais frescos e oficiais que chegaram!
+        initTable();
+        updAnoSelect();
+        if (selA.value && selM.value) consultar();
+    }
+
+    window.onload = iniciarSite;
 </script>
 </body>
 </html>
