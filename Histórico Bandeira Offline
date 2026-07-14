@@ -201,7 +201,6 @@
             const valorFormatado = valorCalculado.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
             resBox.innerHTML = `Adicional na fatura: ${valorFormatado}`;
             
-            // CORREÇÃO: Buscando o ano e o mês da forma completa para evitar o erro de ReferenceError
             const a = document.getElementById('ano').value;
             const m = document.getElementById('mes').value;
             
@@ -213,8 +212,8 @@
             const isPassado = (parseInt(a) < anoAtual) || (parseInt(a) === anoAtual && parseInt(m) < mesAtual);
             const verbo = isPassado ? "teve" : "terá";
 
-            // Montando a mensagem perfeita
-            const msg = `Nossa conta de energia ${verbo} um adicional estimado de *${valorFormatado}* em ${mesesFull[m-1]}/${a} devido à Bandeira Tarifária. ⚡\n\nSaiba como se livrar dessa taxa com o Mercado Livre de Energia:\n🔗 auben.com.br`;
+            // URL Oficial atualizada na mensagem
+            const msg = `Nossa conta de energia ${verbo} um adicional estimado de *${valorFormatado}* em ${mesesFull[m-1]}/${a} devido à Bandeira Tarifária. ⚡\n\nSaiba como se livrar dessa taxa com o Mercado Livre de Energia:\n🔗 aubenenergia.com.br`;
             
             shareBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
             shareBtn.classList.add('show');
@@ -223,7 +222,6 @@
             shareBtn.classList.remove('show');
         }
     }
-
     function initTable() {
         const anosTodos = Object.keys(db).map(Number).sort((a,b) => b - a);
         const anos = anosTodos.slice(0, 6).map(String); // Pega apenas os 6 anos mais recentes
