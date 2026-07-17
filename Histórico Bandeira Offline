@@ -191,7 +191,7 @@
         res.innerHTML = html;
     }
 
-   function calc() {
+ function calc() {
         const k = parseFloat(document.getElementById('kwh').value);
         const resBox = document.getElementById('res-calc');
         const shareBtn = document.getElementById('btn-share');
@@ -204,16 +204,26 @@
             const a = document.getElementById('ano').value;
             const m = document.getElementById('mes').value;
             
-            // Lógica do tempo verbal (teve / terá)
+            // Lógica do tempo verbal e da chamada para ação
             const dataAtual = new Date();
             const anoAtual = dataAtual.getFullYear();
             const mesAtual = dataAtual.getMonth() + 1; // getMonth começa no zero
             
             const isPassado = (parseInt(a) < anoAtual) || (parseInt(a) === anoAtual && parseInt(m) < mesAtual);
-            const verbo = isPassado ? "teve" : "terá";
+            
+            let verbo = "";
+            let textoAcao = "";
 
-            // URL Oficial atualizada na mensagem
-            const msg = `Nossa conta de energia ${verbo} um adicional estimado de *${valorFormatado}* em ${mesesFull[m-1]}/${a} devido à Bandeira Tarifária. ⚡\n\nSaiba como se livrar dessa taxa com o Mercado Livre de Energia:\n🔗 aubenenergia.com.br`;
+            if (isPassado) {
+                verbo = "teve";
+                textoAcao = "Você poderia ter economizado esse valor com o Mercado Livre de Energia:";
+            } else {
+                verbo = "terá";
+                textoAcao = "Saiba como se livrar dessa taxa com o Mercado Livre de Energia:";
+            }
+
+            // Mensagem dinâmica montada com segurança
+            const msg = `Nossa conta de energia ${verbo} um adicional estimado de *${valorFormatado}* em ${mesesFull[m-1]}/${a} devido à Bandeira Tarifária. ⚡\n\n${textoAcao}\n🔗 aubenenergia.com.br`;
             
             shareBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
             shareBtn.classList.add('show');
